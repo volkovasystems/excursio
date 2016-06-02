@@ -1,0 +1,29 @@
+{
+  "name": "excursio",
+  "version": "0.0.0",
+  "description": "Execute a comment or string.",
+  "main": "excursio.js",
+  "authors": [
+    "Richeve S. Bebedor <richeve.bebedor@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "eval",
+    "comment",
+    "string",
+    "execute",
+    "excursio",
+    "komento"
+  ],
+  "homepage": "https://github.com/volkovasystems/excursio",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "komento": "^0.2.2"
+  }
+}
