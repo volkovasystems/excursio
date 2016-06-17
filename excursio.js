@@ -36,33 +36,55 @@
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/excursio.git",
-			"global": true,
-			"class": true
+			"global": true
 		}
 	@end-module-configuration
 
 	@module-documentation:
-		
+
 	@end-module-documentation
 
 	@include:
 		{
+			"asea": "asea",
 			"komento": "komento"
 		}
 	@end-include
 */
 
 if( typeof window == "undefined" ){
+	var asea = require( "asea" );
 	var komento = require( "komento" );
 }
 
 if( typeof window != "undefined" &&
+	!( "asea" in window ) )
+{
+	throw new Error( "asea is not defined" );
+}
+
+if( asea.client &&
 	!( "komento" in window ) )
 {
 	throw new Error( "komento is not defined" );
 }
 
 var excursio = function excursio( expression ){
+	var self = this;
+	if( asea.server ){
+		if( !this ||
+			this === global )
+		{
+			self = global;
+		}
+	}else if( asea.client ){
+		if( !this ||
+			this === window )
+		{
+			self = window;
+		}
+	}
+
 	if( typeof expression == "string" ){
 		return ( function( ){
 			return eval( komento( function procedure( ){
@@ -79,16 +101,16 @@ var excursio = function excursio( expression ){
 					} ).bind( this )( )
 				*/
 			}, { "expression": expression } ) );
-		} ).bind( this )( );
+		} ).bind( self ).call( self );
 
 	}else if( typeof expression == "function" ){
-		return excursio.bind( this )( komento( expression ) );
+		return excursio.bind( self )( komento( expression ) );
 
 	}else{
 		throw new Error( "invalid expression" );
 	}
 };
 
-if( typeof module != "undefined" ){
+if( asea.server ){
 	module.exports = excursio;
 }

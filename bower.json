@@ -1,6 +1,6 @@
 {
   "name": "excursio",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Execute a comment or string.",
   "main": "excursio.js",
   "authors": [
@@ -24,6 +24,7 @@
     "tests"
   ],
   "dependencies": {
-    "komento": "^0.2.2"
+    "komento": "^0.2.2",
+    "asea": "^0.0.1"
   }
 }
