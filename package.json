@@ -1,6 +1,6 @@
 {
   "name": "excursio",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Execute a comment or string.",
   "main": "excursio.js",
   "scripts": {

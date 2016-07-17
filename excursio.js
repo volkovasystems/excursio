@@ -90,14 +90,16 @@ var excursio = function excursio( expression ){
 			return eval( komento( function procedure( ){
 				/*!
 					( function( ){
+						var result = undefined;
+
 						{{expression}}
 
 						var _result = this;
-						if( typeof result != "undefined" ){
-							result = _result;
+						if( typeof result == "undefined" ){
+							return _result
 						}
 
-						return _result;
+						return result;
 					} ).bind( this )( )
 				*/
 			}, { "expression": expression } ) );
