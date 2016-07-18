@@ -55,6 +55,10 @@
 if( typeof window == "undefined" ){
 	var asea = require( "asea" );
 	var komento = require( "komento" );
+	var util = require( "util" );
+
+	global.asea = asea;
+	global.util = util;
 }
 
 if( typeof window != "undefined" &&
@@ -90,9 +94,17 @@ var excursio = function excursio( expression ){
 			return eval( komento( function procedure( ){
 				/*!
 					( function( ){
-						var result = undefined;
+						try{
+							var result = ( {{expression}} );
 
-						{{expression}}
+						}catch( error ){
+							if( asea.server ){
+								console.log( "fatal, error, executing expression", util.inspect( error ) );
+
+							}else if( asea.client ){
+								console.debug( "fatal, error, executing expression", error );
+							}
+						}
 
 						var _result = this;
 						if( typeof result == "undefined" ){
@@ -102,7 +114,7 @@ var excursio = function excursio( expression ){
 						return result;
 					} ).bind( this )( )
 				*/
-			}, { "expression": expression } ) );
+			}, { "expression": expression || undefined } ) );
 		} ).bind( self ).call( self );
 
 	}else if( typeof expression == "function" ){
