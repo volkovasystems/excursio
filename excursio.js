@@ -95,7 +95,7 @@ var excursio = function excursio( expression ){
 				/*!
 					( function( ){
 						try{
-							var result = ( {{expression}} );
+							var result = ( {{{expression}}} );
 
 						}catch( error ){
 							if( asea.server ){
