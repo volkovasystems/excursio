@@ -1,6 +1,6 @@
 "use strict";
 
-/*:
+/*;
 	@module-license:
 		The MIT License (MIT)
 		@mit-license
@@ -99,7 +99,8 @@ var excursio = function excursio( expression ){
 
 						}catch( error ){
 							if( asea.server ){
-								console.log( "fatal, error, executing expression", util.inspect( error ) );
+								console.log( "fatal, error, executing expression",
+									util.inspect( error ) );
 
 							}else if( asea.client ){
 								console.debug( "fatal, error, executing expression", error );
