@@ -1,6 +1,6 @@
 {
   "name": "excursio",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Execute a comment or string.",
   "main": "excursio.js",
   "scripts": {
@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/volkovasystems/excursio#readme",
   "dependencies": {
-    "asea": "0.0.3",
-    "komento": "^0.2.4"
+    "asea": "^0.1.2",
+    "komento": "^0.2.5"
   }
 }
