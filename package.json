@@ -1,10 +1,13 @@
 {
   "name": "excursio",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "Execute a comment or string.",
   "main": "excursio.js",
+  "support": "excursio.support.js",
+  "deploy": "excursio.deploy.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel excursio.js -o excursio.support.js && webpack",
+    "test": "mocha excursio-test.js"
   },
   "repository": {
     "type": "git",
@@ -19,13 +22,25 @@
     "komento"
   ],
   "author": "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
+  "contributors": [
+    "John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/volkovasystems/excursio/issues"
   },
   "homepage": "https://github.com/volkovasystems/excursio#readme",
   "dependencies": {
-    "asea": "^0.1.2",
-    "komento": "^0.2.5"
+    "komento": "^0.9.0",
+    "protype": "^0.8.0",
+    "zelf": "^0.4.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-latest": "^6.16.0",
+    "source-map-loader": "^0.1.6",
+    "webpack": "^1.14.0"
   }
 }

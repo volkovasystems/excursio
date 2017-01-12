@@ -1,11 +1,9 @@
-"use strict";
-
 /*;
 	@module-license:
 		The MIT License (MIT)
 		@mit-license
 
-		Copyright (@c) 2016 Richeve Siodina Bebedor
+		Copyright (@c) 2017 Richeve Siodina Bebedor
 		@email: richeve.bebedor@gmail.com
 
 		Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -34,6 +32,9 @@
 			"file": "excursio.js",
 			"module": "excursio",
 			"author": "Richeve S. Bebedor",
+			"contributors": [
+				"John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>"
+			],
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/excursio.git",
 			"global": true
@@ -41,91 +42,79 @@
 	@end-module-configuration
 
 	@module-documentation:
-
+		Execute a comment or string as expression.
 	@end-module-documentation
 
 	@include:
 		{
-			"asea": "asea",
-			"komento": "komento"
+			"komento": "komento",
+			"protype": "protype",
+			"zelf": "zelf"
 		}
 	@end-include
 */
 
-if( typeof window == "undefined" ){
-	var asea = require( "asea" );
-	var komento = require( "komento" );
-	var util = require( "util" );
+const komento = require( "komento" );
+const protype = require( "protype" );
+const zelf = require( "zelf" );
 
-	global.asea = asea;
-	global.util = util;
-}
+const excursio = function excursio( expression ){
+	/*;
+		@meta-configuration:
+			{
+				"expression:required": [
+					"string",
+					"function"
+				]
+			}
+		@end-meta-configuration
+	*/
 
-if( typeof window != "undefined" &&
-	!( "asea" in window ) )
-{
-	throw new Error( "asea is not defined" );
-}
+	let self = zelf( this );
 
-if( asea.client &&
-	!( "komento" in window ) )
-{
-	throw new Error( "komento is not defined" );
-}
-
-var excursio = function excursio( expression ){
-	var self = this;
-	if( asea.server ){
-		if( !this ||
-			this === global )
-		{
-			self = global;
-		}
-	}else if( asea.client ){
-		if( !this ||
-			this === window )
-		{
-			self = window;
-		}
+	let expressionType = protype( expression );
+	if( !expressionType.STRING && !expressionType.FUNCTION ){
+		throw new Error( "invalid expression" );
 	}
 
-	if( typeof expression == "string" ){
-		return ( function( ){
-			return eval( komento( function procedure( ){
-				/*!
-					( function( ){
-						try{
-							var result = ( {{{expression}}} );
+	if( expressionType.STRING ){
+		return ( function evaluate( ){
+			try{
+				expression = komento( function procedure( ){
+					`
+						( function execute( ){
+							var result = undefined;
 
-						}catch( error ){
-							if( asea.server ){
-								console.log( "fatal, error, executing expression",
-									util.inspect( error ) );
+							try{
+								result = ( {{{ expression }}} );
 
-							}else if( asea.client ){
-								console.debug( "fatal, error, executing expression", error );
+							}catch( error ){
+								throw new Error( "error executing expression, " + error );
 							}
-						}
 
-						var _result = this;
-						if( typeof result == "undefined" ){
-							return _result
-						}
+							return result;
+						} )
+						.bind( ( typeof global != "undefined" )? global :
+							( typeof window != "undefined" )? window :
+							JSON.parse( {{{ self }}} ) )( )
+					`
+				}, {
+					"expression": expression || undefined,
+					"self": JSON.stringify( self || { } )
+				} );
 
-						return result;
-					} ).bind( this )( )
-				*/
-			}, { "expression": expression || undefined } ) );
-		} ).bind( self ).call( self );
+				return eval( expression );
 
-	}else if( typeof expression == "function" ){
+			}catch( error ){
+				throw new Error( `error evaluating expression, ${ error }` );
+			}
+
+		} ).call( self );
+	}
+
+	if( expressionType.FUNCTION ){
 		return excursio.bind( self )( komento( expression ) );
-
-	}else{
-		throw new Error( "invalid expression" );
 	}
 };
 
-if( asea.server ){
-	module.exports = excursio;
-}
+module.exports = excursio;
