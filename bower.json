@@ -1,12 +1,13 @@
 {
   "name": "excursio",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "Execute a comment or string.",
   "main": "excursio.js",
   "support": "excursio.support.js",
   "deploy": "excursio.deploy.js",
   "authors": [
-    "Richeve S. Bebedor <richeve.bebedor@gmail.com>"
+    "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
+    "John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>"
   ],
   "license": "MIT",
   "keywords": [
@@ -27,7 +28,7 @@
   ],
   "dependencies": {
     "komento": "^0.9.0",
-    "protype": "^0.7.0",
+    "protype": "^0.8.0",
     "zelf": "^0.4.0"
   }
 }
