@@ -1,7 +1,10 @@
 yarn add \
 babel-runtime \
+calcify \
+falzy \
 komento \
 protype \
+wichevr \
 zelf \
 --save && \
 yarn add \
@@ -13,7 +16,11 @@ source-map-loader \
 webpack \
 --dev && \
 bower install \
+calcify \
+falzy \
 komento \
 protype \
+wichevr \
 zelf \
---save
+--save \
+--force-latest

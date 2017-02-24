@@ -1,5 +1,3 @@
-"use strict";
-
 /*;
 	@module-license:
 		The MIT License (MIT)
@@ -49,15 +47,21 @@
 
 	@include:
 		{
+			"calcify": "calcify",
+			"falzy": "falzy",
 			"komento": "komento",
 			"protype": "protype",
+			"wichevr": "wichevr",
 			"zelf": "zelf"
 		}
 	@end-include
 */
 
+const calcify = require( "calcify" );
+const falzy = require( "falzy" );
 const komento = require( "komento" );
 const protype = require( "protype" );
+const wichevr = require( "wichevr" );
 const zelf = require( "zelf" );
 
 const excursio = function excursio( expression ){
@@ -74,47 +78,41 @@ const excursio = function excursio( expression ){
 
 	let self = zelf( this );
 
-	let expressionType = protype( expression );
-	if( !expressionType.STRING && !expressionType.FUNCTION ){
+	if( falzy( expression ) || !protype( expression, STRING + FUNCTION ) ){
 		throw new Error( "invalid expression" );
 	}
 
-	if( expressionType.STRING ){
+	if( protype( expression, STRING ) ){
 		return ( function evaluate( ){
 			try{
-				expression = komento( function procedure( ){
-					`
-						( function execute( ){
-							var result = undefined;
+				expression = `
+					( function execute( ){
+						var result = undefined;
 
-							try{
-								result = ( {{{ expression }}} );
+						try{
+							result = ( ${ expression || undefined } );
 
-							}catch( error ){
-								throw new Error( "error executing expression, " + error );
-							}
+						}catch( error ){
+							throw new Error( "error executing expression, " + error.stack );
+						}
 
-							return result;
-						} )
-						.bind( ( typeof global != "undefined" )? global :
-							( typeof window != "undefined" )? window :
-							JSON.parse( {{{ self }}} ) )( )
-					`
-				}, {
-					"expression": expression || undefined,
-					"self": JSON.stringify( self || { } )
-				} );
+						return result;
+					} )
+					.bind( ( typeof global != "undefined" )? global :
+						( typeof window != "undefined" )? window :
+						JSON.parse( ${ calcify( wichevr( self, { } ) ) } ) )( )
+				`;
 
 				return eval( expression );
 
 			}catch( error ){
-				throw new Error( `error evaluating expression, ${ error }` );
+				throw new Error( `error evaluating expression, ${ error.stack }` );
 			}
 
 		} ).call( self );
 	}
 
-	if( expressionType.FUNCTION ){
+	if( protype( expression, FUNCTION ) ){
 		return excursio.bind( self )( komento( expression ) );
 	}
 };

@@ -1,10 +1,9 @@
 {
   "name": "excursio",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Execute a comment or string.",
-  "main": "excursio.js",
+  "main": "excursio.deploy.js",
   "support": "excursio.support.js",
-  "deploy": "excursio.deploy.js",
   "authors": [
     "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
     "John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>"
@@ -27,8 +26,11 @@
     "tests"
   ],
   "dependencies": {
-    "komento": "^0.10.0",
-    "protype": "^0.11.0",
-    "zelf": "^0.6.0"
+    "calcify": "^0.5.0",
+    "falzy": "^0.13.0",
+    "komento": "^0.15.0",
+    "protype": "^0.17.0",
+    "wichevr": "^0.0.0",
+    "zelf": "^0.8.0"
   }
 }

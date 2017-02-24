@@ -2,4 +2,4 @@
 
 const excursio = require( "./excursio.js" );
 
-console.log( excursio( ) );
+console.log( excursio( "1+1" ) );

@@ -1,12 +1,12 @@
 {
   "name": "excursio",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Execute a comment or string.",
   "main": "excursio.js",
   "support": "excursio.support.js",
   "deploy": "excursio.deploy.js",
   "scripts": {
-    "build": "babel excursio.js -o excursio.support.js && webpack",
+    "build": "babel excursio.js --out-file excursio.support.js --source-maps && webpack --progress --display-modules",
     "test": "mocha excursio-test.js"
   },
   "repository": {
@@ -31,17 +31,20 @@
   },
   "homepage": "https://github.com/volkovasystems/excursio#readme",
   "dependencies": {
-    "babel-runtime": "^6.22.0",
-    "komento": "^0.10.0",
-    "protype": "^0.11.0",
-    "zelf": "^0.6.0"
+    "babel-runtime": "^6.23.0",
+    "calcify": "^0.5.0",
+    "falzy": "^0.13.0",
+    "komento": "^0.15.0",
+    "protype": "^0.17.0",
+    "wichevr": "^0.0.0",
+    "zelf": "^0.8.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.22.2",
-    "babel-core": "^6.22.1",
-    "babel-plugin-transform-runtime": "^6.22.0",
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-latest": "^6.22.0",
     "source-map-loader": "^0.1.6",
-    "webpack": "^1.14.0"
+    "webpack": "^2.2.1"
   }
 }
