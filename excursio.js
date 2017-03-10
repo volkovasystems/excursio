@@ -47,44 +47,51 @@
 
 	@include:
 		{
-			"calcify": "calcify",
+			"depher": "depher",
 			"falzy": "falzy",
 			"komento": "komento",
 			"protype": "protype",
-			"wichevr": "wichevr",
+			"rmor": "rmor",
+			"wichis": "wichis",
 			"zelf": "zelf"
 		}
 	@end-include
 */
 
-const calcify = require( "calcify" );
+const depher = require( "depher" );
 const falzy = require( "falzy" );
 const komento = require( "komento" );
 const protype = require( "protype" );
-const wichevr = require( "wichevr" );
+const rmor = require( "rmor" );
+const wichis = require( "wichis" );
 const zelf = require( "zelf" );
 
-const excursio = function excursio( expression ){
+const excursio = function excursio( expression, depth ){
 	/*;
 		@meta-configuration:
 			{
 				"expression:required": [
 					"string",
 					"function"
-				]
+				],
+				"depth": "number"
 			}
 		@end-meta-configuration
 	*/
-
-	let self = zelf( this );
 
 	if( falzy( expression ) || !protype( expression, STRING + FUNCTION ) ){
 		throw new Error( "invalid expression" );
 	}
 
+	depth = depher( arguments, NUMBER, 1 );
+
+	let self = zelf( this );
+
 	if( protype( expression, STRING ) ){
 		return ( function evaluate( ){
 			try{
+				let context = JSON.stringify( wichis( rmor( self, depth ), { } ) );
+
 				expression = `
 					( function execute( ){
 						var result = undefined;
@@ -98,9 +105,26 @@ const excursio = function excursio( expression ){
 
 						return result;
 					} )
-					.bind( ( typeof global != "undefined" )? global :
-						( typeof window != "undefined" )? window :
-						JSON.parse( ${ calcify( wichevr( self, { } ) ) } ) )( )
+					.bind( ( function context( ){
+						try{
+							var self = JSON.parse( '${ context }' );
+
+							if( Object.keys( self ).length == 0 ){
+								if( typeof global != "undefined" ){
+									return global;
+								}
+
+								if( typeof window != "undefined" ){
+									return window;
+								}
+							}
+
+							return self;
+
+						}catch( error ){
+							throw new Error( "error resolving expression context, " + error.stack );
+						}
+					} )( ) )( )
 				`;
 
 				return eval( expression );
@@ -113,7 +137,7 @@ const excursio = function excursio( expression ){
 	}
 
 	if( protype( expression, FUNCTION ) ){
-		return excursio.bind( self )( komento( expression ) );
+		return excursio.bind( self )( komento( expression ), depth );
 	}
 };
 

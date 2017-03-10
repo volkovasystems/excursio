@@ -2,4 +2,4 @@
 
 const excursio = require( "./excursio.js" );
 
-console.log( excursio( "1+1" ) );
+console.log( excursio.bind( { "hello": "world" } )( "1+1" ) );
