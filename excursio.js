@@ -47,9 +47,11 @@
 
 	@include:
 		{
+			"clazof": "clazof",
 			"depher": "depher",
 			"falzy": "falzy",
 			"komento": "komento",
+			"madhatter": "madhatter",
 			"protype": "protype",
 			"rmor": "rmor",
 			"wichis": "wichis",
@@ -58,9 +60,11 @@
 	@end-include
 */
 
+const clazof = require( "clazof" );
 const depher = require( "depher" );
 const falzy = require( "falzy" );
 const komento = require( "komento" );
+const madhatter = require( "madhatter" );
 const protype = require( "protype" );
 const rmor = require( "rmor" );
 const wichis = require( "wichis" );
@@ -126,6 +130,11 @@ const excursio = function excursio( expression, depth ){
 						}
 					} )( ) )( )
 				`;
+
+				let error = madhatter( expression );
+				if( clazof( error, Error ) ){
+					throw error;
+				}
 
 				return eval( expression );
 

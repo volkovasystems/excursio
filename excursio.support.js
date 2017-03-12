@@ -47,9 +47,11 @@
                                                                                                                                                                                                                                  
                                                                                                                                                                                                                                  	@include:
                                                                                                                                                                                                                                  		{
+                                                                                                                                                                                                                                 			"clazof": "clazof",
                                                                                                                                                                                                                                  			"depher": "depher",
                                                                                                                                                                                                                                  			"falzy": "falzy",
                                                                                                                                                                                                                                  			"komento": "komento",
+                                                                                                                                                                                                                                 			"madhatter": "madhatter",
                                                                                                                                                                                                                                  			"protype": "protype",
                                                                                                                                                                                                                                  			"rmor": "rmor",
                                                                                                                                                                                                                                  			"wichis": "wichis",
@@ -58,9 +60,11 @@
                                                                                                                                                                                                                                  	@end-include
                                                                                                                                                                                                                                  */
 
+var clazof = require("clazof");
 var depher = require("depher");
 var falzy = require("falzy");
 var komento = require("komento");
+var madhatter = require("madhatter");
 var protype = require("protype");
 var rmor = require("rmor");
 var wichis = require("wichis");
@@ -126,6 +130,11 @@ var excursio = function excursio(expression, depth) {
 
 
 
+
+				var error = madhatter(expression);
+				if (clazof(error, Error)) {
+					throw error;
+				}
 
 				return eval(expression);
 

@@ -1,8 +1,10 @@
 yarn add \
 babel-runtime \
+clazof \
 depher \
 falzy \
 komento \
+madhatter \
 protype \
 rmor \
 wichis \
@@ -17,9 +19,11 @@ source-map-loader \
 webpack \
 --dev && \
 bower install \
+clazof \
 depher \
 falzy \
 komento \
+madhatter \
 protype \
 rmor \
 wichis \
