@@ -1,6 +1,6 @@
 {
   "name": "excursio",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "Execute a comment or string.",
   "main": "excursio.js",
   "support": "excursio.support.js",
@@ -33,13 +33,13 @@
   "homepage": "https://github.com/volkovasystems/excursio#readme",
   "dependencies": {
     "babel-runtime": "^6.23.0",
-    "clazof": "^0.25.0",
-    "depher": "^0.30.0",
+    "clazof": "^0.27.0",
+    "depher": "^0.32.0",
     "falzy": "^0.19.0",
-    "komento": "^0.26.0",
-    "madhatter": "^0.11.0",
+    "komento": "^0.28.0",
+    "madhatter": "^0.12.0",
     "protype": "^0.21.0",
-    "rmor": "^0.6.0",
+    "rmor": "^0.7.0",
     "wichis": "^0.13.0",
     "zelf": "^0.11.0"
   },
@@ -49,6 +49,6 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-latest": "^6.24.1",
     "source-map-loader": "^0.2.1",
-    "webpack": "^2.5.0"
+    "webpack": "^2.5.1"
   }
 }
