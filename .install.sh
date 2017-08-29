@@ -13,8 +13,8 @@ zelf \
 yarn add \
 babel-cli \
 babel-core \
+babel-preset-env \
 babel-plugin-transform-runtime \
-babel-preset-latest \
 electron \
 gulp \
 gulp-babel \
